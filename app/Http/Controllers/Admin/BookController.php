@@ -80,6 +80,9 @@ class BookController extends Controller
             "uuid" => $book->id,
             "lang" => "en",
             "title" => $book->title,
+            "description" => $book->description,
+            "author" => $book->author,
+            "publisher" => $book->publisher,
             "slow" => true
         ]);
 
@@ -155,4 +158,5 @@ class BookController extends Controller
         $book->delete();
         return redirect()->route('admin.book.index')->with('success', 'Book deleted successfully');
     }
+    
 }

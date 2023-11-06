@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Illuminate\Support\Facades\Storage;
 
 class BookCategory extends Model
 {
@@ -16,8 +17,13 @@ class BookCategory extends Model
     protected $fillable = [
         'name',
         'slug',
+        'thumbnail',
         'description',
         'featured'
+    ];
+
+    protected $appends = [
+        'thumbnail_url'
     ];
 
     public function getSlugOptions() : SlugOptions
@@ -25,6 +31,13 @@ class BookCategory extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
+    }
+
+   
+
+    public function getThumbnailUrlAttribute() {
+        if(!$this->thumbnail) return null;
+        return Storage::disk('s3')->url($this->thumbnail);
     }
 
     public function books() {

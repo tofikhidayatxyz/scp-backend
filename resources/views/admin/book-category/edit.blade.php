@@ -6,7 +6,7 @@
                 <h2 >Edit Book Category</h2>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.book-category.update', $bookCategory->id) }}" method="POST">
+                <form action="{{ route('admin.book-category.update', $bookCategory->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
@@ -33,6 +33,14 @@
                         <label for="description" class="form-label">Book Category Description</label>
                         <textarea name="description" id="description" cols="30" rows="5" class="form-control @error('description') is-invalid @enderror" placeholder="Enter book category description">{{ old('description', $bookCategory->description) }}</textarea>
                         @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="thumbnail" class="form-label">Thumbnail (Image : png, jpg)</label>
+                        <input type="file" accept="image/png,image/jpg,image/jpeg" name="thumbnail" id="thumbnail" class="form-control @error('thumbnail') is-invalid @enderror" placeholder="Enter book cover" value="{{ old('thumbnail') }}">
+                        @error('thumbnail')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

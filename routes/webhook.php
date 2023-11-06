@@ -14,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('pdf', App\Http\Controllers\Webhook\PDFWebhookController::class)->name('webhook.pdf');
+Route::post('summary', App\Http\Controllers\Webhook\PDFSummaryController::class)->name('webhook.summary');
+Route::post('audio', App\Http\Controllers\Webhook\PDFAudioController::class)->name('webhook.mp3');

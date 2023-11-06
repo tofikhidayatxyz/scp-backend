@@ -13,14 +13,15 @@ class BookAudio extends Model
     protected $fillable = [
         'book_id',
         'audio_id',
+        'type',
         'format'
     ];
 
-    protected $append = [
-        's3_url'
+    protected $appends = [
+        'audio_url'
     ];
 
-    public function getS3UrlAttribute() {
+    public function getAudioUrlAttribute() {
         return Storage::disk('s3')->url($this->book_id . '/audios/' . $this->audio_id . '.' . $this->format);
     }
 

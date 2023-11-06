@@ -27,9 +27,10 @@ class Book extends Model
         'featured'
     ];
 
-    protected $append = [
+    protected $appends = [
         's3_cover_url',
         's3_pdf_url',
+        's3_pdf_summary_url',
     ];
 
 
@@ -51,6 +52,11 @@ class Book extends Model
     public function getS3PdfUrlAttribute() {
         return $this->pdf_url ? Storage::disk('s3')->url($this->pdf_url) : null;
     }
+
+    public function getS3PdfSummaryUrlAttribute() {
+        return  Storage::disk('s3')->url("{$this->id}/summary.pdf");
+    }
+
 
     public function user() {
         return $this->belongsTo(User::class);

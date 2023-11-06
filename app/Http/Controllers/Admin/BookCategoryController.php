@@ -26,11 +26,14 @@ class BookCategoryController extends Controller
             'name' => 'required|unique:book_categories,name',
             'description' => 'required'
         ]);
+        // $thumbnail
+        $thumbnail = $request->file('thumbnail')->store('thumbnail', 's3');
 
         BookCategory::create([
             'name' => $request->name,
             'description' => $request->description,
-            'featured' => $request->featured
+            'featured' => $request->featured,
+            'thumbnail' => $thumbnail
         ]);
 
         return redirect()->route('admin.book-category.index')->with('success', 'Book category created successfully');
@@ -48,10 +51,16 @@ class BookCategoryController extends Controller
             'description' => 'required'
         ]);
 
+        $thumbnail =  $bookCategory->thumbnail;
+        if($request->hasFile('thumbnail')) {
+            $thumbnail = $request->file('thumbnail')->store('thumbnail', 's3');
+        }
+
         $bookCategory->update([
             'name' => $request->name,
             'description' => $request->description,
-            'featured' => $request->featured
+            'featured' => $request->featured,
+            'thumbnail' => $thumbnail
         ]);
 
         return redirect()->route('admin.book-category.index')->with('success', 'Book category updated successfully');

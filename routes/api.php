@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('webhook/pdf', App\Http\Controllers\Webhook\PDFWebhookController::class)->name('webhook.pdf');
+
+
+// Books api
+Route::prefix('/v1')->group(function() {
+    Route::get('/books', [BookController::class, 'index']);
+    Route::get('/books/{id}', [BookController::class, 'detail']);
+    Route::get('/categories', [BookController::class, 'category']);
+});

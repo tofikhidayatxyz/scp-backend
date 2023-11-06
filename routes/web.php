@@ -23,7 +23,8 @@ Route::get('/book/detail/{slug}', [PublicController::class, 'detail'])->name('bo
 // group admin prefix
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function() {
-    Route::get('/', 'Admin\BookController@create')->name('index');
+    // Route::get('/', 'Admin\BookController@create')->name('index');
+    Route::get('/', [App\Http\Controllers\Admin\BookController::class, 'index'])->name('index');
     Route::resource('book-category', App\Http\Controllers\Admin\BookCategoryController::class, ['names' => 'book-category']);
     Route::resource('book', App\Http\Controllers\Admin\BookController::class, ['names' => 'book']);
 });

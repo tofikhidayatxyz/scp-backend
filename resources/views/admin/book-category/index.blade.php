@@ -11,9 +11,11 @@
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
+                        <th>Thumbnail</th>
                         <th>SN</th>
                         <th>Name</th>
                         <th>Slug</th>
+                        <th>Books</th>
                         <th>Featured</th>
                         <th>Created At</th>
                         <th>Updated At</th>
@@ -23,9 +25,13 @@
                 <tbody>
                     @foreach ($bookCategories as $bookCategory)
                         <tr>
+                            <td>
+                                <img src="{{ $bookCategory->thumbnail_url }}" style="height: 150;width:80px; object-fit:cover;" alt="{{ $bookCategory->name }}" width="100">
+                            </td>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $bookCategory->name }}</td>
                             <td>{{ $bookCategory->slug }}</td>
+                            <td>{{ $bookCategory->books->count() }}</td>
                             <td>{{ $bookCategory->featured ? 'Yes' : 'No' }}</td>
                             <td>{{ $bookCategory->created_at }}</td>
                             <td>{{ $bookCategory->updated_at }}</td>

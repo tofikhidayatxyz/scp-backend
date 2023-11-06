@@ -6,7 +6,7 @@
                 <h2 >Add New Book Category</h2>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.book-category.store') }}" method="POST">
+                <form action="{{ route('admin.book-category.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Book Category Name</label>
@@ -35,6 +35,15 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div class="mb-3">
+                        <label for="thumbnail" class="form-label">Thumbnail (Image : png, jpg)</label>
+                        <input type="file" accept="image/png,image/jpg,image/jpeg" name="thumbnail" id="thumbnail" class="form-control @error('thumbnail') is-invalid @enderror" placeholder="Enter book cover" value="{{ old('thumbnail') }}">
+                        @error('thumbnail')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                    
                     <button type="submit" class="btn btn-primary">Add</button>
                 </form>
